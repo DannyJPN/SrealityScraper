@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestLuxo</title>
+</head>
+<body>
+    <form method="GET" action="/compose-url">
+        <select name="property_type">
+			{% for x in propTypes %}
+			<option value="{{x.id}}" {% if x.id == property_type %} selected= "selected" {% endif %}>{{x.text}}</option>	
+			{% endfor %}
+		</select>
+		<select name="advert_type">
+			{% for x in adTypes %}
+			<option value="{{x.id}}"  {% if x.id == transaction_type %} selected= "selected" {% endif %}>{{x.text}}</option>	
+			{% endfor %}
+		</select>
+        <button id="searchButton" type="submit">Search</button>
+    </form>
+    <div id="urlDisplay">{{target_url}}</div>
+    {% if scraped_data %}
+    <div id="scrapedData">
+        <h2>Scraped Properties</h2>
+        <ul>
+            {% for item in scraped_data %}
+            <li>
+                <h3>{{ item.name }}</h3>
+                <img src="{{ item.image_url }}" alt="{{ item.name }}">
+                <p><a href="{{ item.item_url }}" target="_blank">View Property</a></p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>
